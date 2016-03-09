@@ -1,5 +1,9 @@
 var express = require("express");
 var userLib =  require("./user.js");
+
+var moment = require('moment');
+var now = moment();
+
 var app = express();
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');

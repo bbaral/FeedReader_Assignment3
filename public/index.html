@@ -3,12 +3,21 @@
 <head>
     <title> Simple JS Eval</title>
     <script src='script.js'> </script>
+
     <script src='jquery-2.2.1.min.js'> </script>
+    <script src='JReject/js/jquery.reject.js'> </script>
+    <link rel="stylesheet" type="text/css" href="jquery.reject.css">
+
     <script src = '/node_modules/moment/moment.js'> </script>
-    <script src='ply.js'> </script>
+
+    <script src = 'offline.min.js'> </script>
+    <link rel="stylesheet" type="text/css" href="offline-theme-dark.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src='ply.js'> </script>
     <link rel="stylesheet" type="text/css" href="ply.css">
     <script>
+
         var showLoginModal = function()
         {
             Ply.factory('login', function (options, data, resolve) {
@@ -81,18 +90,16 @@
             }
             var postObj = postObjList[index]
             var markUp = "";
-            var momentTimestamp = moment.utc(markUp.timestamp);
             markUp += "<h1>" + postObj.title.label + "</h1>";
             markUp += "<h2>" + postObj["im:artist"].label + "</h1>";
             markUp += "<img src='" + postObj["im:image"][0].label + "'>"
-            markUp += index.append('<p><strong>' + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
             var price = postObj["im:price"].label;
             if(price.toLowerCase() === "get") price = "$0.00";
             markUp += "<i>" + price  + "</i>";
             document.getElementById("selFeedWrapper").innerHTML = markUp;
         }
         var startUp = function(){
-            showLoginModal();
+        showLoginModal();
             // loadMySubs();
         }
         var addFeed = function()
@@ -126,6 +133,7 @@
                 }
             });
         }
+
     </script>
     <style>
         p{

@@ -13,29 +13,20 @@
 
     <script src = 'offline.min.js'> </script>
     <script src="snake.js"></script>
-    <link rel="stylesheet" type="text/css" href="offline-theme-dark.css">
+    <link rel="stylesheet" type="text/css" href="offline-theme-slide.css">
+    <link rel="stylesheet" type="text/css" href="offline-message.css">
+
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src='ply.js'> </script>
     <link rel="stylesheet" type="text/css" href="ply.css">
 
     <script>
-
-        Offline.options = {
-            game: true,
-            checks: {
-                image: {
-                    url: 'http://yourcustomurl.com/offlinejs/my-image.gif'
-                }
-            }
-        }
-
         var run = function(){
             if (Offline.state === 'up')
                 Offline.check();
         }
         setInterval(run, 5000);
-
     </script>
 
     <script>

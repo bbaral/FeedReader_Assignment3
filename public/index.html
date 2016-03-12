@@ -5,10 +5,11 @@
     <script src='script.js'> </script>
 
     <script src='jquery-2.2.1.min.js'> </script>
-    <script src='JReject/js/jquery.reject.js'> </script>
-    <link rel="stylesheet" type="text/css" href="jquery.reject.css">
+    <script src='jReject/js/jquery.reject.js'> </script>
 
-    <script src = '/node_modules/moment/moment.js'> </script>
+    <link rel="stylesheet" type="text/css" href="jReject/css/jquery.reject.css">
+
+    <!--<script src = '/node_modules/moment/moment.js'> </script>-->
 
     <script src = 'offline.min.js'> </script>
     <script src="snake.js"></script>
@@ -120,7 +121,7 @@
             document.getElementById("selFeedWrapper").innerHTML = markUp;
         }
         var startUp = function(){
-        showLoginModal();
+        //showLoginModal();
             $.reject({
                 reject: {
                     safari: false, // Apple Safari
@@ -132,7 +133,7 @@
                     unknown: false // Everything else
                 }
             });
-            //loadMySubs();
+            loadMySubs();
         }
         var addFeed = function()
         {

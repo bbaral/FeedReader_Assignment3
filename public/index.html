@@ -11,11 +11,32 @@
     <script src = '/node_modules/moment/moment.js'> </script>
 
     <script src = 'offline.min.js'> </script>
+    <script src="snake.js"></script>
     <link rel="stylesheet" type="text/css" href="offline-theme-dark.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src='ply.js'> </script>
     <link rel="stylesheet" type="text/css" href="ply.css">
+
+    <script>
+
+        Offline.options = {
+            game: true,
+            checks: {
+                image: {
+                    url: 'http://yourcustomurl.com/offlinejs/my-image.gif'
+                }
+            }
+        }
+
+        var run = function(){
+            if (Offline.state === 'up')
+                Offline.check();
+        }
+        setInterval(run, 5000);
+
+    </script>
+
     <script>
 
         var showLoginModal = function()
@@ -100,7 +121,18 @@
         }
         var startUp = function(){
         showLoginModal();
-            // loadMySubs();
+            $.reject({
+                reject: {
+                    safari: false, // Apple Safari
+                    chrome: false, // Google Chrome
+                    firefox: false, // Mozilla Firefox
+                    msie: true, // Microsoft Internet Explorer
+                    opera: false, // Opera
+                    konqueror: false, // Konqueror (Linux)
+                    unknown: false // Everything else
+                }
+            });
+            //loadMySubs();
         }
         var addFeed = function()
         {

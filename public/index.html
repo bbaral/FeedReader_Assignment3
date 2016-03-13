@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="jReject/css/jquery.reject.css">
 
-    <!--<script src = '/node_modules/moment/moment.js'> </script>-->
+    <script src ='moment.js'> </script>
 
     <script src = 'offline.min.js'> </script>
     <script src="snake.js"></script>
@@ -27,6 +27,16 @@
                 Offline.check();
         }
         setInterval(run, 5000);
+    </script>
+<!--/This function is for display time-->
+    <script>
+        var showtime = function()
+        {
+            // instantiate a moment object
+            var NowMoment = moment().format('MMMM DD YYYY, h:mm a');
+            console.log(NowMoment);
+            document.getElementById('displaytime').innerHTML = NowMoment;
+        }
     </script>
 
     <script>
@@ -84,7 +94,7 @@
                 var markUp = "<h1>" + title + "</h1>";
                 for (var i = 0; i < postObjList.length; i++){
                     var aPost = postObjList[i];
-                    markUp += "<a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +" </a>";
+                    markUp += "<a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +"<span></span> </a>";
                 }
                 document.getElementById("currFeedWrapper").innerHTML = markUp;
             });
@@ -125,6 +135,7 @@
                 }
             });
             loadMySubs();
+            showtime();
         }
         var addFeed = function()
         {
@@ -165,12 +176,15 @@
         }
         body{
             margin: 0px;
+            background:url('background.jpg');
+            background-size: 100%;
+            border: 1px;
         }
         #myFeedWrapper{
             display: inline-block;
             width: 25%;
             vertical-align: top;
-            background: #9edd95;
+            background: #77e05b;
             min-height: 100%;
             overflow: auto;
 
@@ -179,7 +193,7 @@
             display: inline-block;
             width: 25%;
             vertical-align: top;
-            background: #8ddd89;
+            background: #85f071;
             min-height: 100%;
             overflow: auto;
         }
@@ -187,9 +201,18 @@
             display: inline-block;
             width: 48%;
             vertical-align: top;
-            background: #bfdda9;
+            background: #88ff6e;
             min-height: 100%;
 
+        }
+        #displaytime{
+            /*padding: 0.5em;*/
+            color: #573f0b;
+            font-size: 1em;
+            font-style: italic;
+            background-color: #dffcd9;
+            border-radius: 0.5em;
+            margin: 0.3em;
         }
         hr{
             width:100%;
@@ -207,12 +230,10 @@
 
 <body onload='startUp()'>
 <div id="header">
-    <div class="ribbon">
-        <div class="ribbon-stitches-top"></div>
-        <strong class="ribbon-content"><h1>RSS Feed Reader</h1></strong>
-        <div class="ribbon-stitches-bottom"></div>
+    <div id="header-text">
+        <h1>RSS Feed Reader</h1>
+        </div>
     </div>
-</div>
 <div id='myFeedWrapper'>
     <h2> My Feeds </h2>
     <hr>
@@ -231,6 +252,7 @@
     <h2>List of Feeds</h2>
     <hr>
     <div id='feedDetails'> </div>
+    <div id="displaytime"></div>
 </div>
 <div id="footer">
     <ol>Design by Bikram Baral</ol>

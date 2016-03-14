@@ -28,14 +28,14 @@
         }
         setInterval(run, 5000);
     </script>
-<!--/This function is for display time-->
+    <!--/This function is for display time-->
     <script>
         var showtime = function()
         {
             // instantiate a moment object
             var NowMoment = moment().format('MMMM DD YYYY, h:mm a');
             console.log(NowMoment);
-            document.getElementById('displaytime').innerHTML = NowMoment;
+            document.getElementById('Time').innerHTML = NowMoment;
         }
     </script>
 
@@ -78,7 +78,7 @@
             var list = document.getElementById("myFeedList").getElementsByClassName("listItem")
             for(var i = 0; i < list.length; i++){
                 if(i == index){
-                    list[i].style.color = "red";
+                    list[i].style.color = "blue";
                     list[i].style.backgroundColor= "white";
                 }
                 else{
@@ -94,7 +94,7 @@
                 var markUp = "<h1>" + title + "</h1>";
                 for (var i = 0; i < postObjList.length; i++){
                     var aPost = postObjList[i];
-                    markUp += "<a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +"<span></span> </a>";
+                    markUp += "<div class='List'><a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +"<span class='space'>&nbsp;&nbsp;-></span> </a></div>";
                 }
                 document.getElementById("currFeedWrapper").innerHTML = markUp;
             });
@@ -103,7 +103,7 @@
             var list = document.getElementById("currFeedWrapper").getElementsByClassName("listItem")
             for(var i = 0; i < list.length; i++){
                 if(i == index){
-                    list[i].style.color = "red";
+                    list[i].style.color = "blue";
                     list[i].style.backgroundColor= "white";
                 }
                 else{
@@ -122,7 +122,7 @@
             document.getElementById("selFeedWrapper").innerHTML = markUp;
         }
         var startUp = function(){
-        //showLoginModal();
+            //showLoginModal();
             $.reject({
                 reject: {
                     safari: false, // Apple Safari
@@ -162,7 +162,7 @@
                     var markUp = "";
                     for (var i = 0; i < mySubs.length; i++){
                         var aFeed = mySubs[i];
-                        markUp += "<a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link +" </a>";
+                        markUp += "<div id='List'> <a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link +" </a></div>";
                     }
                     document.getElementById("myFeedList").innerHTML = markUp;
                 }
@@ -176,7 +176,7 @@
         }
         body{
             margin: 0px;
-            background:url('background.jpg');
+            background:url('bridge.jpg');
             background-size: 100%;
             border: 1px;
         }
@@ -184,7 +184,7 @@
             display: inline-block;
             width: 25%;
             vertical-align: top;
-            background: #77e05b;
+            background: #43a375;
             min-height: 100%;
             overflow: auto;
 
@@ -193,19 +193,19 @@
             display: inline-block;
             width: 25%;
             vertical-align: top;
-            background: #85f071;
+            background: #43a375;
             min-height: 100%;
-            overflow: auto;
+            overflow: scroll;
         }
         #selFeedWrapper{
             display: inline-block;
             width: 48%;
             vertical-align: top;
-            background: #88ff6e;
+            background:#43a375;
             min-height: 100%;
 
         }
-        #displaytime{
+        #Time{
             /*padding: 0.5em;*/
             color: #573f0b;
             font-size: 1em;
@@ -217,13 +217,21 @@
         hr{
             width:100%;
             height:1px;
-            background: #1093ff
+            background: #fff7ff
         }
         h2{
             text-align: center;
         }
         li{
             padding:10px;
+        }
+        .space{
+            color: #307D69;
+            font-size: 1.2em;
+            vertical-align: top;
+        }
+        .List{
+            padding:0.2em;
         }
     </style>
 </head>
@@ -232,8 +240,8 @@
 <div id="header">
     <div id="header-text">
         <h1>RSS Feed Reader</h1>
-        </div>
     </div>
+</div>
 <div id='myFeedWrapper'>
     <h2> My Feeds </h2>
     <hr>
@@ -252,7 +260,7 @@
     <h2>List of Feeds</h2>
     <hr>
     <div id='feedDetails'> </div>
-    <div id="displaytime"></div>
+    <div id="Time"></div>
 </div>
 <div id="footer">
     <ol>Design by Bikram Baral</ol>

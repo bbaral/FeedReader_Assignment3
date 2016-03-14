@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Simple JS Eval</title>
+    <title> RSS FEEDER</title>
     <script src='script.js'> </script>
 
     <script src='jquery-2.2.1.min.js'> </script>
@@ -52,6 +52,8 @@
                 };
                 options.onaction = function (ui) {
                     var data = ui.data;
+//                    var user = data.email;
+//                    var password = data.password;
                     console.log(ui.data);
 
                 };
@@ -122,7 +124,7 @@
             document.getElementById("selFeedWrapper").innerHTML = markUp;
         }
         var startUp = function(){
-            //showLoginModal();
+            showLoginModal();
             $.reject({
                 reject: {
                     safari: false, // Apple Safari
@@ -232,6 +234,7 @@
         }
         .List{
             padding:0.2em;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -256,12 +259,15 @@
     <div id='currFeedList'>
     </div>
 </div>
+
 <div id='selFeedWrapper'>
     <h2>List of Feeds</h2>
     <hr>
     <div id='feedDetails'> </div>
     <div id="Time"></div>
 </div>
+
+
 <div id="footer">
     <ol>Design by Bikram Baral</ol>
 </div>

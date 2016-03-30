@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> RSS FEEDER</title>
     <script src='script.js'> </script>
 
@@ -20,6 +21,8 @@
 
     <script src='ply.js'> </script>
     <link rel="stylesheet" type="text/css" href="ply.css">
+    <script src='uaSpoofing.js'> </script>
+    <script src='md5.js'> </script>
 
     <script>
         var run = function(){
@@ -40,6 +43,18 @@
     </script>
 
     <script>
+
+        var AI = {
+            show: function(){
+                var mu = "<div class='acInd fadeBox'>"+
+                        '<div class="theSpinner"></div>' +
+                        "</div>";
+                document.body.innerHTML += mu;
+            },
+            hide:function(){
+                $(".acInd").remove();
+            }
+        }
 
         var showLoginModal = function()
         {
@@ -77,6 +92,7 @@
         var postObjList = null;
         var debug = null;
         var aSubSelected = function(index){
+            AI.show();
             var list = document.getElementById("myFeedList").getElementsByClassName("listItem")
             for(var i = 0; i < list.length; i++){
                 if(i == index){
@@ -98,10 +114,31 @@
                     var aPost = postObjList[i];
                     markUp += "<div class='List'><a href='javascript:aPostSelected(" + i + ")' class='listItem'>" + aPost.title.label +"<span class='space'>&nbsp;&nbsp;-></span> </a></div>";
                 }
-                document.getElementById("currFeedWrapper").innerHTML = markUp;
+                document.getElementById("currFeedWrapper").innerHTML =
+                        "<a href='javascript:backToMyFeeds()' class='backButton'> Back </a>" + markUp;
+                if(ENV.screen.small) {
+                    $("#myFeedWrapper, #selFeedWrapper").fadeOut();
+                    $("#currFeedWrapper").fadeIn();
+                }
+                AI.hide();
             });
         }
+        function backToMyFeeds()
+        {
+            if(ENV.screen.small){
+                $("#currFeedWrapper, #selFeedWrapper").fadeOut();
+                $("#myFeedWrapper").fadeIn();
+            }
+        }
+        function backToCurrFeeds()
+        {
+            if(ENV.screen.small){
+                $("#myFeedWrapper, #selFeedWrapper").fadeOut();
+                $("#currFeedWrapper").fadeIn();
+            }
+        }
         var aPostSelected = function(index){
+            AI.show();
             var list = document.getElementById("currFeedWrapper").getElementsByClassName("listItem")
             for(var i = 0; i < list.length; i++){
                 if(i == index){
@@ -121,10 +158,13 @@
             var price = postObj["im:price"].label;
             if(price.toLowerCase() === "get") price = "$0.00";
             markUp += "<i>" + price  + "</i>";
-            document.getElementById("selFeedWrapper").innerHTML = markUp;
+            document.getElementById("selFeedWrapper").innerHTML =
+                    "<a href='javascript:backToCurrFeeds()' class='backButton'> Back </a>"+  markUp;
         }
         var startUp = function(){
-            showLoginModal();
+            spoofUserAgent();
+            //showLoginModal();
+            loadMySubs();
             $.reject({
                 reject: {
                     safari: false, // Apple Safari
@@ -160,13 +200,17 @@
                 if(mySubs.length == 0){
                     document.getElementById("myFeedList").innerHTML = "No subsciptions"
                 }
-                else{
+                else {
                     var markUp = "";
-                    for (var i = 0; i < mySubs.length; i++){
+                    for (var i = 0; i < mySubs.length; i++) {
                         var aFeed = mySubs[i];
-                        markUp += "<div id='List'> <a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link +" </a></div>";
+                        markUp += "<div id='List'> <a href='javascript:aSubSelected(" + i + ")' class='listItem'>" + aFeed.id + " : " + aFeed.link + " </a></div>";
                     }
                     document.getElementById("myFeedList").innerHTML = markUp;
+                    if (ENV.screen.small) {
+                        $("#currFeedWrapper, #selFeedWrapper").fadeOut();
+                        $("#myFeedWrapper").fadeIn();
+                    }
                 }
             });
         }
@@ -236,6 +280,30 @@
             padding:0.2em;
             word-wrap: break-word;
         }
+        .bigScreen #myFeedWrapper, .bigScreen #currFeedWrapper {
+            width: 25%;
+        }
+        .smallScreen #myFeedWrapper, .smallScreen #currFeedWrapper{
+            width: 100%;
+        }
+        #myFeedWrapper, #currFeedWrapper{
+            display: inline-block;
+            vertical-align: top;
+            background: #ddd;
+            min-height: 100%;
+        }
+        .bigScreen #selFeedWrapper{
+            width: 48%;
+        }
+        .smallScreen #selFeedWrapper{
+            width: 100%;
+        }
+        .bigScreen .backButton{
+            display: none;
+        }
+        .fadeBox {
+
+        }
     </style>
 </head>
 
@@ -262,6 +330,7 @@
 
 <div id='selFeedWrapper'>
     <h2>List of Feeds</h2>
+    <a href='javascript:backToCurrFeeds()' class='backButton'> Back </a>
     <hr>
     <div id='feedDetails'> </div>
     <div id="Time"></div>
